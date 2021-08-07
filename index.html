@@ -1,0 +1,338 @@
+<html>
+	<head>
+		<title>CSS documentation page</title>
+	    <link rel="stylesheet" href="index.css" />
+	</head>
+        <nav id="navbar">
+  <header>
+    <h2 id="title-nav">CSS documentation</h2>
+  </header>
+  <ul>
+    <li><a class="nav-link" href="#What_is_css">What is CSS</a></li>
+    <li><a class="nav-link" href="#Starting_with_css">Starting with CSS</a></li>
+    <li><a class="nav-link" href="#Adding_class">Adding class</a></li>
+    <li><a class="nav-link" href="#Flexbox">Flexbox</a></li>
+    <li><a class="nav-link" href="#Wrapping">Wrapping</a></li>
+    <li><a class="nav-link" href="#Flexible_sizing_of_flex_items">Flexible sizing of flex items</a></li>
+    <li><a class="nav-link" href="#Horizontal_and_vertical_alignment">Horizontal and vertical alignment</a></li>
+    <li><a class="nav-link" href="#Ordering_flex_items">Ordering flex items</a></li>
+    <li><a class="nav-link" href="#Nested_flex_boxes">Nested flex boxes</a></li>
+    <li><a class="nav-link" href="#Cross-browser_compatibility">Cross-browser compatibility</a></li>
+    <li><a class="nav-link" href="#Grid">Grid</a></li>
+
+    <li><a class="nav-link" href="#What_is_grid_layout?">What is grid layout?</a></li>
+  </ul>
+</nav>
+
+<main id="main-doc">
+  <section class="main-section" id="What_is_css">
+    <header>
+      <h2>What is Css</h2>
+    </header>
+    <p>CSS: Cascading Style Sheets
+      Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML (including XML dialects such as SVG, MathML or XHTML). CSS describes how elements should be rendered on screen, on paper, in speech, or on other media.
+
+      CSS is among the core languages of the open web and is standardized across Web browsers according to W3C specifications. Previously, development of various parts of CSS specification was done synchronously, which allowed versioning of the latest recommendations. You might have heard about CSS1, CSS2.1, CSS3. However, CSS4 has never become an official version.
+
+      From CSS3, the scope of the specification increased significantly and the progress on different CSS modules started to differ so much, that it became more effective to develop and release recommendations separately per module. Instead of versioning the CSS specification, W3C now periodically takes a snapshot of the latest stable state of the CSS specification.</p>
+  </section>
+
+  <section class="main-section" id="Starting_with_css">
+    <header>
+      <h2>Starting with CSS</h2>
+    </header>
+    <p>In this article we will take a simple HTML document and apply CSS to it, learning some practical things about the language along the way.
+      Our starting point is an HTML document. You can copy the code from below if you want to work on your own computer. Save the code below as <span class="code">index.html</span> in a folder on your machine.
+    <p>The very first thing we need to do is to tell the HTML document that we have some CSS rules we want it to use. There are three different ways to apply CSS to an HTML document that you'll commonly come across, however, for now, we will look at the most usual and useful way of doing so — linking CSS from the head of your document.</p>
+    <p>Create a file in the same folder as your HTML document and save it as <span class="code">styles.css.</span> The .css extension shows that this is a CSS file.
+
+      To link styles.css to index.html add the following line somewhere inside the
+
+      <head> of the HTML document:
+    </p>
+    <code>
+      < link rel="stylesheet" href="styles.css">
+    </code>
+    <p>By making our heading red we have already demonstrated that we can target and style an HTML element. We do this by targeting an element selector — this is a selector that directly matches an HTML element name. To target all paragraphs in the document you would use the selector p. To turn all paragraphs green you would use:</p>
+    <code>p {
+      color: green;
+      }</code>
+    <p>You can target multiple selectors at once, by separating the selectors with a comma. If I want all paragraphs and all list items to be green my rule looks like this:</p>
+    <code>p, li {
+      color: green;
+      }</code>
+    <p>Try this out in the interactive editor below (edit the code boxes), or in your local CSS document.</p>
+
+  </section>
+
+  <section class="main-section" id="Adding_class">
+    <header>
+      <h2>Adding class</h2>
+    </header>
+    <p>So far we have styled elements based on their HTML element names. This works as long as you want all of the elements of that type in your document to look the same. Most of the time that isn't the case and so you will need to find a way to select a subset of the elements without changing the others. The most common way to do this is to add a class to your HTML element and target that class.
+
+      In your HTML document, add a class attribute to the second list item. Your list will now look like this:</p>
+    <code>
+      < ul>
+        < li>Item one< /li>
+            <p>
+              < li class="special">Item two< /li>
+            </p>
+            < li>Item < em>three< /em>
+                  < /li>
+                    < /ul>
+    </code>
+    <p>In your CSS you can target the class of special by creating a selector that starts with a full stop character. Add the following to your CSS file:</p>
+    <code>.special {
+      color: orange;
+      font-weight: bold;
+      }</code>
+    <p>Save and refresh to see what the result is.
+
+      You can apply the class of special to any element on your page that you want to have the same look as this list item. For example, you might want the <span> in the paragraph to also be orange and bold. Try adding a class of special to it, then reload your page and see what happens.
+
+        Sometimes you will see rules with a selector that lists the HTML element selector along with the class</p>
+  </section>
+
+  <section class="main-section" id="Flexbox">
+    <header>
+      <h2>Flexbox</h2>
+    </header>
+    <p>For a long time, the only reliable cross-browser compatible tools available for creating CSS layouts were features like floats and positioning. These work, but in some ways they're also limiting and frustrating.
+
+      The following simple layout designs are either difficult or impossible to achieve with such tools in any kind of convenient, flexible way:
+    <ul>
+      <li>Vertically centering a block of content inside its parent.</li>
+      <li>Making all the children of a container take up an equal amount of the available width/height, regardless of how much width/height is available.</li>
+      <li>Making all columns in a multiple-column layout adopt the same height even if they contain a different amount of content.</li>
+    </ul>
+    As you'll see in subsequent sections, flexbox makes a lot of layout tasks much easier. Let's dig in!</p>
+    <p>To start with, we need to select which elements are to be laid out as flexible boxes. To do this, we set a special value of display on the parent element of the elements you want to affect. In this case we want to lay out the < article> elements, so we set this on the < section>:</p>
+    <code>section {
+      display: flex;
+      }</code>
+    <p>In your CSS you can target the class of special by creating a selector that starts with a full stop character. Add the following to your CSS file:</p>
+    <code>flex-direction: column;</code>
+    <p>So, this single declaration gives us everything we need. Incredible, right? We have our multiple column layout with equal-sized columns, and the columns are all the same height. This is because the default values given to flex items (the children of the flex container) are set up to solve common problems such as this.</p>
+  </section>
+
+  <section class="main-section" id="Wrapping">
+    <header>
+      <h2>Wrapping</h2>
+    </header>
+    <p>One issue that arises when you have a fixed width or height in your layout is that eventually your flexbox children will overflow their container, breaking the layout. Have a look at our flexbox-wrap0.html example and try viewing it live (take a local copy of this file now if you want to follow along with this example):</p>
+    <p>But there's more we can do here. First of all, try changing your flex-direction property value to row-reverse. Now you'll see that you still have your multiple row layout, but it starts from the opposite corner of the browser window and flows in reverse.</p>
+    <code>flex-wrap: wrap;<p>flex: 200px;</p></code>
+
+  </section>
+
+  <section class="main-section" id="Flexible_sizing_of_flex_items">
+    <header>
+      <h2>Flexible sizing of flex items</h2>
+    </header>
+    <p>Let's now return to our first example and look at how we can control what proportion of space flex items take up compared to the other flex items. Fire up your local copy of flexbox0.html, or take a copy of flexbox1.html as a new starting point (see it live).
+
+      First, add the following rule to the bottom of your CSS:</p>
+    <code>article {
+      flex: 1;
+      }</code>
+    <p>This is a unitless proportion value that dictates how much available space along the main axis each flex item will take up compared to other flex items. In this case, we're giving each
+    <article> element the same value (a value of 1), which means they'll all take up an equal amount of the spare space left after properties like padding and margin have been set. This value is proportionally shared among the flex items: giving each flex item a value of 400000 would have exactly the same effect.
+
+      Now add the following rule below the previous one:</p>
+      <code>article:nth-of-type(3) {
+        flex: 2;
+        }</code>
+      <p>Now when you refresh, you'll see that the third
+      <article> takes up twice as much of the available width as the other two. There are now four proportion units available in total (since 1 + 1 + 2 = 4). The first two flex items have one unit each, so they each take 1/4 of the available space. The third one has two units, so it takes up 2/4 of the available space (or one-half).</p>
+  </section>
+
+  <section class="main-section" id="Horizontal_and_vertical_alignment">
+    <header>
+      <h2>Horizontal and vertical alignment</h2>
+    </header>
+    <p>You can also use flexbox features to align flex items along the main or cross axis. Let's explore this by looking at a new example: flex-align0.html (see it live also). We're going to turn this into a neat, flexible button/toolbar. At the moment you'll see a horizontal menu bar with some buttons jammed into the top left-hand corner.
+
+      First, take a local copy of this example.
+
+      Now, add the following to the bottom of the example's CSS:</p>
+    <code>div {
+      display: flex;<p>
+        align-items: center;</p>
+      justify-content: space-around;
+      }</code>
+    <p>Refresh the page and you'll see that the buttons are now nicely centered horizontally and vertically. We've done this via two new properties.
+
+      align-items controls where the flex items sit on the cross axis
+    <ul>
+      <li>By default, the value is stretch, which stretches all flex items to fill the parent in the direction of the cross axis. If the parent doesn't have a fixed width in the cross axis direction, then all flex items will become as long as the longest flex item. This is how our first example had columns of equal height by default.</li>
+      <p>
+        <li>The center value that we used in our above code causes the items to maintain their intrinsic dimensions, but be centered along the cross axis. This is why our current example's buttons are centered vertically.</li>
+      </p>
+      <p>
+        <li>You can also have values like flex-start and flex-end, which will align all items at the start and end of the cross axis respectively. See align-items for the full details.</li>
+      </p>
+    </ul>
+    </p>
+    <p>You can override the align-items behavior for individual flex items by applying the align-self property to them. For example, try adding the following to your CSS:</p>
+    <code>
+      button:first-child {
+      align-self: flex-end;
+      }
+    </code>
+    <p>Save and refresh to see what the result is.
+
+      You can apply the class of special to any element on your page that you want to have the same look as this list item. For example, you might want the <span> in the paragraph to also be orange and bold. Try adding a class of special to it, then reload your page and see what happens.
+
+        Sometimes you will see rules with a selector that lists the HTML element selector along with the class</p>
+  </section>
+
+  <section class="main-section" id="Ordering_flex_items">
+    <header>
+      <h2>Ordering flex items</h2>
+    </header>
+    <p>So far we have styled elements based on their HTML element names. This works as long as you want all of the elements of that type in your document to look the same. Most of the time that isn't the case and so you will need to find a way to select a subset of the elements without changing the others. The most common way to do this is to add a class to your HTML element and target that class.
+
+      In your HTML document, add a class attribute to the second list item. Your list will now look like this:</p>
+    <code>
+      < ul>
+        < li>Item one< /li>
+            <p>
+              < li class="special">Item two< /li>
+            </p>
+            < li>Item < em>three< /em>
+                  < /li>
+                    < /ul>
+    </code>
+    <p>In your CSS you can target the class of special by creating a selector that starts with a full stop character. Add the following to your CSS file:</p>
+    <code>.special {
+      color: orange;
+      font-weight: bold;
+      }</code>
+    <p>Save and refresh to see what the result is.
+
+      You can apply the class of special to any element on your page that you want to have the same look as this list item. For example, you might want the <span> in the paragraph to also be orange and bold. Try adding a class of special to it, then reload your page and see what happens.
+
+        Sometimes you will see rules with a selector that lists the HTML element selector along with the class</p>
+  </section>
+
+  <section class="main-section" id="Nested_flex_boxes">
+    <header>
+      <h2>Nested flex boxes</h2>
+    </header>
+    <p>So far we have styled elements based on their HTML element names. This works as long as you want all of the elements of that type in your document to look the same. Most of the time that isn't the case and so you will need to find a way to select a subset of the elements without changing the others. The most common way to do this is to add a class to your HTML element and target that class.
+
+      In your HTML document, add a class attribute to the second list item. Your list will now look like this:</p>
+    <code>
+      < ul>
+        < li>Item one< /li>
+            <p>
+              < li class="special">Item two< /li>
+            </p>
+            < li>Item < em>three< /em>
+                  < /li>
+                    < /ul>
+    </code>
+    <p>In your CSS you can target the class of special by creating a selector that starts with a full stop character. Add the following to your CSS file:</p>
+    <code>.special {
+      color: orange;
+      font-weight: bold;
+      }</code>
+    <p>Save and refresh to see what the result is.
+
+      You can apply the class of special to any element on your page that you want to have the same look as this list item. For example, you might want the <span> in the paragraph to also be orange and bold. Try adding a class of special to it, then reload your page and see what happens.
+
+        Sometimes you will see rules with a selector that lists the HTML element selector along with the class</p>
+  </section>
+
+  <section class="main-section" id="Cross-browser_compatibility">
+    <header>
+      <h2>Cross-browser compatibility</h2>
+    </header>
+    <p>So far we have styled elements based on their HTML element names. This works as long as you want all of the elements of that type in your document to look the same. Most of the time that isn't the case and so you will need to find a way to select a subset of the elements without changing the others. The most common way to do this is to add a class to your HTML element and target that class.
+
+      In your HTML document, add a class attribute to the second list item. Your list will now look like this:</p>
+    <code>
+      < ul>
+        < li>Item one< /li>
+            <p>
+              < li class="special">Item two< /li>
+            </p>
+            < li>Item < em>three< /em>
+                  < /li>
+                    < /ul>
+    </code>
+    <p>In your CSS you can target the class of special by creating a selector that starts with a full stop character. Add the following to your CSS file:</p>
+    <code>.special {
+      color: orange;
+      font-weight: bold;
+      }</code>
+    <p>Save and refresh to see what the result is.
+
+      You can apply the class of special to any element on your page that you want to have the same look as this list item. For example, you might want the <span> in the paragraph to also be orange and bold. Try adding a class of special to it, then reload your page and see what happens.
+
+        Sometimes you will see rules with a selector that lists the HTML element selector along with the class</p>
+  </section>
+
+  <section class="main-section" id="Grid">
+    <header>
+      <h2>Grid</h2>
+    </header>
+    <p>So far we have styled elements based on their HTML element names. This works as long as you want all of the elements of that type in your document to look the same. Most of the time that isn't the case and so you will need to find a way to select a subset of the elements without changing the others. The most common way to do this is to add a class to your HTML element and target that class.
+
+      In your HTML document, add a class attribute to the second list item. Your list will now look like this:</p>
+    <code>
+      < ul>
+        < li>Item one< /li>
+            <p>
+              < li class="special">Item two< /li>
+            </p>
+            < li>Item < em>three< /em>
+                  < /li>
+                    < /ul>
+    </code>
+    <p>In your CSS you can target the class of special by creating a selector that starts with a full stop character. Add the following to your CSS file:</p>
+    <code>.special {
+      color: orange;
+      font-weight: bold;
+      }</code>
+    <p>Save and refresh to see what the result is.
+
+      You can apply the class of special to any element on your page that you want to have the same look as this list item. For example, you might want the <span> in the paragraph to also be orange and bold. Try adding a class of special to it, then reload your page and see what happens.
+
+        Sometimes you will see rules with a selector that lists the HTML element selector along with the class</p>
+  </section>
+
+  <section class="main-section" id="What_is_grid_layout?">
+    <header>
+      <h2>What is grid layout?</h2>
+    </header>
+    <p>So far we have styled elements based on their HTML element names. This works as long as you want all of the elements of that type in your document to look the same. Most of the time that isn't the case and so you will need to find a way to select a subset of the elements without changing the others. The most common way to do this is to add a class to your HTML element and target that class.
+
+      In your HTML document, add a class attribute to the second list item. Your list will now look like this:</p>
+    <code>
+      < ul>
+        < li>Item one< /li>
+            <p>
+              < li class="special">Item two< /li>
+            </p>
+            < li>Item < em>three< /em>
+                  < /li>
+                    < /ul>
+    </code>
+    <p>In your CSS you can target the class of special by creating a selector that starts with a full stop character. Add the following to your CSS file:</p>
+    <code>.special {
+      color: orange;
+      font-weight: bold;
+      }</code>
+    <p>Save and refresh to see what the result is.
+
+      You can apply the class of special to any element on your page that you want to have the same look as this list item. For example, you might want the <span> in the paragraph to also be orange and bold. Try adding a class of special to it, then reload your page and see what happens.
+
+        Sometimes you will see rules with a selector that lists the HTML element selector along with the class</p>
+  </section>
+
+</main>
+</html>
+ 
+
